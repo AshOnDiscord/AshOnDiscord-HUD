@@ -114,3 +114,4 @@ Temporary Items
 /run/logs/
 /run/crash-reports/
 /run/**/*.log
+/run/config
