@@ -1,0 +1,11 @@
+{
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:snowy_plains": "2023-04-07 14:49:05 -0400",
+      "minecraft:grove": "2023-04-07 14:53:16 -0400",
+      "minecraft:frozen_ocean": "2023-04-07 14:53:21 -0400"
+    },
+    "done": false
+  },
+  "DataVersion": 3218
+}
