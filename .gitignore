@@ -115,3 +115,4 @@ Temporary Items
 /run/crash-reports/
 /run/**/*.log
 /run/config
+/run/options*
