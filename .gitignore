@@ -105,3 +105,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+## CUSTOM
+# REMOVE UNNEEDED RUN FILES
+/run/screenshots
+/run/servers.dat*
+/run/usercache.json
+/run/saves
+/run/logs/
+/run/crash-reports/
+/run/**/*.log
