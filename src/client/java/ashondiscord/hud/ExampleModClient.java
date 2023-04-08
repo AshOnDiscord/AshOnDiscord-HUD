@@ -166,33 +166,6 @@ public class ExampleModClient implements ClientModInitializer {
 		Hotkey use = Objects.requireNonNull(getHotkey("useKey")); // using | right click/RMB
 
 		MSAAFramebuffer.use(8, () -> {
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), new Color(0, 0, 0, 96), 5, 5, 69,9+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), text, 37, 9, 1, 1, 1, 1);
-//			// w
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), forward.pressed ? heldBG : unheldBG, 27, 11+height, 47,31+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), forward.name, 37, 15+height, forward.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, forward.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, forward.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, forward.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-//			// a
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), left.pressed ? heldBG : unheldBG, 5, 33+height, 25,53+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), left.name, 15, 37+height, left.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, left.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, left.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, left.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-//			// s
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), backward.pressed ? heldBG : unheldBG, 27, 33+height, 47,53+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), backward.name, 37, 37+height, backward.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, backward.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, backward.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, backward.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-//			// d
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), right.pressed ? heldBG : unheldBG, 49, 33+height, 69,53+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), right.name, 59, 37+height, right.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, right.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, right.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, right.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-//
-//			// space
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), jump.pressed ? heldBG : unheldBG, 5, 55+height, 69,75+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), jump.name, 37, 59+height, jump.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, jump.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, jump.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, jump.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-//
-//			// left click
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), attack.pressed ? heldBG : unheldBG, 5, 77+height, 36,97+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), attack.name, 20.5f, 81+height, attack.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, attack.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, attack.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, attack.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-//
-//			// right click
-//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), use.pressed ? heldBG : unheldBG, 38, 77+height, 69,97+height, 5, 10);
-//			FR.drawCenteredString(hud.getMatrixStack(), use.name, 53.5f, 81+height, use.pressed ? heldColor.getRed()/255f : unheldColor.getRed()/255f, use.pressed ? heldColor.getGreen()/255f : unheldColor.getGreen()/255f, use.pressed ? heldColor.getBlue()/255f : unheldColor.getBlue()/255f, use.pressed ? heldColor.getAlpha()/255f : unheldColor.getAlpha()/255f);
-
 			// FPS COUNTER
 			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), unheldBG, margin, margin, margin+size*3+gap*2, margin+size, radius, 10);
 			FR.drawCenteredString(hud.getMatrixStack(), "FPS: " + fps, (size*3+gap*2)/2 + margin, margin+padding, unheldColor.getRed()/255f, unheldColor.getGreen()/255f, unheldColor.getBlue()/255f, unheldColor.getAlpha()/255f);
