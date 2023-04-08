@@ -116,4 +116,5 @@ Temporary Items
 /run/**/*.log
 /run/config
 /run/options*
-/run/data
+!/run/mods
+!/run/mods/*
