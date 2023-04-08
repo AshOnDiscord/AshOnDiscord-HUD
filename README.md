@@ -6,5 +6,13 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 
 `./run/` by default only includes the mods dir(which has some basic mods that we should probably have support for aswell are just nice to have while testing). Nothing else should be included.
 
+## Features
+- [X] FPS
+- [X] Keystrokes
+- [ ] CPS
+- [ ] Ping
+- [ ] Coordinates
+- more to come
+
 ## Releases
 Precompiled/built jars will likely be avaiable once the mod gets to a decent point of functionality/development.
