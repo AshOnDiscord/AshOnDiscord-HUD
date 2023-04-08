@@ -123,9 +123,10 @@ public class ExampleModClient implements ClientModInitializer {
 
 	@MessageSubscription
 	void onHudRendered(RenderEvent.Hud hud) {
+		if (FR == null) { // this is set in the onHudRendered method so the window exists and so an error is not thrown
+			// TODO: make this run everytime the window is resized
 
-		if (FR == null) {
-			// Set window size to 1280x720
+			// Set window size to 1280x720 for play testing in the dev environment/showcasing
 //			MinecraftClient.getInstance().getWindow().setWindowedSize(1280, 720);
 
 			// check if screen width / px is an integer
@@ -145,13 +146,7 @@ public class ExampleModClient implements ClientModInitializer {
 				}, baseSize);
 				LOGGER.info("Using font size: " + baseSize);
 			}
-
-			// check if screen width / px is an integer
-
 		}
-
-
-//
 
 		// get client fps
 		int fps = MinecraftClient.getInstance().fpsDebugString.split(" ")[0].equals("fps:") ? 0 : Integer.parseInt(MinecraftClient.getInstance().fpsDebugString.split(" ")[0]);
@@ -164,6 +159,12 @@ public class ExampleModClient implements ClientModInitializer {
 		Hotkey jump = Objects.requireNonNull(getHotkey("jumpKey")); // jumping | space
 		Hotkey attack = Objects.requireNonNull(getHotkey("attackKey")); // attacking | left click/LMB
 		Hotkey use = Objects.requireNonNull(getHotkey("useKey")); // using | right click/RMB
+
+		// Get user's coordinates
+		int precision = 1;
+		float x = (float) Math.round(MinecraftClient.getInstance().player.getX() * Math.pow(10, precision)) / (float) Math.pow(10, precision);
+		float y = (float) Math.round(MinecraftClient.getInstance().player.getY() * Math.pow(10, precision)) / (float) Math.pow(10, precision);
+		float z = (float) Math.round(MinecraftClient.getInstance().player.getZ() * Math.pow(10, precision)) / (float) Math.pow(10, precision);
 
 		MSAAFramebuffer.use(8, () -> {
 			// FPS COUNTER
@@ -198,6 +199,19 @@ public class ExampleModClient implements ClientModInitializer {
 			// RMB
 			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), use.bg, margin+size*1.5+gap, margin+(size+gap)*4, margin+size*3+gap*2, margin+(size+gap)*4+size, radius, 10);
 			FR.drawCenteredString(hud.getMatrixStack(), use.name, margin+size*1.5f+gap+size*1.5f/2, margin+(size+gap)*4+padding, use.getOxFG().r, use.getOxFG().g, use.getOxFG().b, use.getOxFG().a);
+
+			// COORDINATES (Bottom left)
+			int height = MinecraftClient.getInstance().getWindow().getScaledHeight();
+
+			// fixed width + centered text
+//			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), unheldBG, margin, height-margin-size, margin+size*6+gap*2, height-margin, radius, 10);
+//			FR.drawCenteredString(hud.getMatrixStack(), "X: " + x + " Y: " + y + " Z: " + z, (size*6+gap*2)/2 + margin, height-margin-size+padding, unheldColor.getRed()/255f, unheldColor.getGreen()/255f, unheldColor.getBlue()/255f, unheldColor.getAlpha()/255f);
+
+			// dynamic width + left aligned text
+			String coords = "X: " + x + " Y: " + y + " Z: " + z;
+			float width = FR.getStringWidth(coords);
+			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), unheldBG, margin, height-margin-size, margin+width+padding*2, height-margin, radius, 10);
+			FR.drawString(hud.getMatrixStack(), coords, margin+padding, height-margin-size+padding, unheldColor.getRed()/255f, unheldColor.getGreen()/255f, unheldColor.getBlue()/255f, unheldColor.getAlpha()/255f);
 		});
 	}
 }

@@ -109,6 +109,7 @@ Temporary Items
 # REMOVE UNNEEDED RUN FILES
 /run/screenshots
 /run/servers.dat*
+/run/resourcepacks
 /run/usercache.json
 /run/saves
 /run/logs/
@@ -116,5 +117,6 @@ Temporary Items
 /run/**/*.log
 /run/config
 /run/options*
+/run/data
 !/run/mods
 !/run/mods/*
