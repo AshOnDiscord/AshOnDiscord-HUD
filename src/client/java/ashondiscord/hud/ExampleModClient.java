@@ -10,6 +10,7 @@ import me.x150.renderer.render.Renderer2d;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import org.slf4j.Logger;
@@ -18,11 +19,15 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class ExampleModClient implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("ashondiscord-hud");
 	public static FontRenderer FR;
+
+	public static ArrayList<Long> lCps = new ArrayList<>();
+	public static ArrayList<Long> rCps = new ArrayList<>();
 
 	@Override
 	public void onInitializeClient() {
@@ -31,14 +36,14 @@ public class ExampleModClient implements ClientModInitializer {
 		Events.manager.registerSubscribers(this);
 	}
 
-	//	public static final Color heldColor = new Color(255, 255, 255, 255);
-	public static final Color heldColor = new Color(255, 255, 255, 255);
-	//	public static final Color unheldColor = new Color(255, 255, 255, 192);
-	public static final Color unheldColor = new Color(196, 196, 196, 255);
-	//	public static final Color heldBG = new Color(0, 0, 0, 144);
-	public static final Color heldBG = new Color(0, 0, 0, 255);
-	//	public static final Color unheldBG = new Color(0, 0, 0, 96);
-	public static final Color unheldBG = new Color(128, 128, 128, 128);
+		public static final Color heldColor = new Color(255, 255, 255, 255);
+//	public static final Color heldColor = new Color(255, 255, 255, 255);
+		public static final Color unheldColor = new Color(255, 255, 255, 192);
+//	public static final Color unheldColor = new Color(196, 196, 196, 255);
+		public static final Color heldBG = new Color(0, 0, 0, 192);
+//	public static final Color heldBG = new Color(0, 0, 0, 255);
+		public static final Color unheldBG = new Color(0, 0, 0, 96);
+//	public static final Color unheldBG = new Color(128, 128, 128, 128);
 
 	public static final float size = 20;
 	public static final float gap = 2;
@@ -47,6 +52,8 @@ public class ExampleModClient implements ClientModInitializer {
 	public static final float margin = 5;
 	public static int fontSize = 8;
 	public static final int baseSize = 8;
+	public static double deltaTime = 0;
+	public static double lastTime = System.currentTimeMillis();
 
 	public static ArrayList<Hotkey> prevHotkeys = new ArrayList<>();
 
@@ -55,11 +62,12 @@ public class ExampleModClient implements ClientModInitializer {
 		public boolean pressed;
 		public Color bg;
 		public Color fg;
-		public static int steps = 20;
-		public static float rStep = (float) (heldBG.getRed() - unheldBG.getRed()) / steps;
-		public static float gStep = (float) (heldBG.getGreen() - unheldBG.getGreen()) / steps;
-		public static float bStep = (float) (heldBG.getBlue() - unheldBG.getBlue()) / steps;
-		public static float aStep = (float) (heldBG.getAlpha() - unheldBG.getAlpha()) / steps;
+		public static float seconds = 0.125f;
+//		public static int steps = 20;
+//		public static float rStep = (float) (heldBG.getRed() - unheldBG.getRed()) / steps;
+//		public static float gStep = (float) (heldBG.getGreen() - unheldBG.getGreen()) / steps;
+//		public static float bStep = (float) (heldBG.getBlue() - unheldBG.getBlue()) / steps;
+//		public static float aStep = (float) (heldBG.getAlpha() - unheldBG.getAlpha()) / steps;
 
 		public Hotkey(String name, boolean pressed, Hotkey prev) {
 
@@ -68,9 +76,9 @@ public class ExampleModClient implements ClientModInitializer {
 //			this.bg = pressed ? heldBG : unheldBG;
 //			this.fg = pressed ? heldColor : unheldColor;
 			// ease the color change
-			this.bg = pressed ? easeColor(heldBG, prev.bg, pressed) : easeColor(unheldBG, prev.bg, pressed);
-//			this.fg = pressed ? easeColor(heldColor, prev.fg, pressed) : easeColor(unheldColor, prev.fg, pressed);
-			this.fg = pressed ? heldColor : unheldColor;
+			this.bg = pressed ? easeColor(heldBG, prev.bg, true, unheldBG) : easeColor(unheldBG, prev.bg, false, heldBG);
+			this.fg = pressed ? easeColor(heldColor, prev.fg, pressed, unheldColor) : easeColor(unheldColor, prev.fg, pressed, heldColor);
+//			this.fg = pressed ? heldColor : unheldColor;
 		}
 
 		public Hotkey(String name, boolean pressed) {
@@ -80,13 +88,21 @@ public class ExampleModClient implements ClientModInitializer {
 			this.fg = pressed ? heldColor : unheldColor;
 		}
 
-		public static Color easeColor(Color target, Color prev, boolean pressed) {
+		public static Color easeColor(Color target, Color prev, boolean pressed, Color from) {
 			if (target.equals(prev)) return target;
 
-			int newR = pressed ? prev.getRed() + (int) rStep : prev.getRed() - (int) rStep;
-			int newG = pressed ? prev.getGreen() + (int) gStep : prev.getGreen() - (int) gStep;
-			int newB = pressed ? prev.getBlue() + (int) bStep : prev.getBlue() - (int) bStep;
-			int newA = pressed ? prev.getAlpha() + (int) aStep : prev.getAlpha() - (int) aStep;
+			// use deltaTime and seconds to calculate the step. deltaTime is in ms
+			double rStep = (float) (target.getRed() - from.getRed()) / (seconds * 1000 / deltaTime);
+			double gStep = (float) (target.getGreen() - from.getGreen()) / (seconds * 1000 / deltaTime);
+			double bStep = (float) (target.getBlue() - from.getBlue()) / (seconds * 1000 / deltaTime);
+			double aStep = (float) (target.getAlpha() - from.getAlpha()) / (seconds * 1000 / deltaTime);
+
+//			LOGGER.info(String.valueOf(deltaTime));
+
+			int newR = prev.getRed() + (int) rStep;
+			int newG = prev.getGreen() + (int) gStep;
+			int newB = prev.getBlue() + (int) bStep;
+			int newA = prev.getAlpha() + (int) aStep;
 
 			if (prev.getRed() == target.getRed()) {
 				newR = target.getRed();
@@ -98,25 +114,14 @@ public class ExampleModClient implements ClientModInitializer {
 				newB = target.getBlue();
 			}
 
-			if (pressed) {
-				if (rStep > 0 && newR > target.getRed()) newR = target.getRed();
-				if (gStep > 0 && newG > target.getGreen()) newG = target.getGreen();
-				if (bStep > 0 && newB > target.getBlue()) newB = target.getBlue();
-				if (aStep > 0 && newA > target.getAlpha()) newA = target.getAlpha();
-				if (rStep < 0 && newR < target.getRed()) newR = target.getRed();
-				if (gStep < 0 && newG < target.getGreen()) newG = target.getGreen();
-				if (bStep < 0 && newB < target.getBlue()) newB = target.getBlue();
-				if (aStep < 0 && newA < target.getAlpha()) newA = target.getAlpha();
-			} else {
-				if (rStep < 0 && newR > target.getRed()) newR = target.getRed();
-				if (gStep < 0 && newG > target.getGreen()) newG = target.getGreen();
-				if (bStep < 0 && newB > target.getBlue()) newB = target.getBlue();
-				if (aStep < 0 && newA > target.getAlpha()) newA = target.getAlpha();
-				if (rStep > 0 && newR < target.getRed()) newR = target.getRed();
-				if (gStep > 0 && newG < target.getGreen()) newG = target.getGreen();
-				if (bStep > 0 && newB < target.getBlue()) newB = target.getBlue();
-				if (aStep > 0 && newA < target.getAlpha()) newA = target.getAlpha();
-			}
+			if (rStep > 0 && newR > target.getRed()) newR = target.getRed();
+			if (gStep > 0 && newG > target.getGreen()) newG = target.getGreen();
+			if (bStep > 0 && newB > target.getBlue()) newB = target.getBlue();
+			if (aStep > 0 && newA > target.getAlpha()) newA = target.getAlpha();
+			if (rStep < 0 && newR < target.getRed()) newR = target.getRed();
+			if (gStep < 0 && newG < target.getGreen()) newG = target.getGreen();
+			if (bStep < 0 && newB < target.getBlue()) newB = target.getBlue();
+			if (aStep < 0 && newA < target.getAlpha()) newA = target.getAlpha();
 
 			if (newR > 255) newR = 255;
 			if (newG > 255) newG = 255;
@@ -127,9 +132,11 @@ public class ExampleModClient implements ClientModInitializer {
 			if (newB < 0) newB = 0;
 			if (newA < 0) newA = 0;
 
-			LOGGER.info("new color: " + newR + ", " + newG + ", " + newB + ", " + newA);
-			LOGGER.info("target color: " + target.getRed() + ", " + target.getGreen() + ", " + target.getBlue() + ", " + target.getAlpha());
-			LOGGER.info("prev color: " + prev.getRed() + ", " + prev.getGreen() + ", " + prev.getBlue() + ", " + prev.getAlpha());
+			LOGGER.info(newR + " | " + newG + " | " + newB + " | " + newA);
+
+//			LOGGER.info("new color: " + newR + ", " + newG + ", " + newB + ", " + newA);
+//			LOGGER.info("target color: " + target.getRed() + ", " + target.getGreen() + ", " + target.getBlue() + ", " + target.getAlpha());
+//			LOGGER.info("prev color: " + prev.getRed() + ", " + prev.getGreen() + ", " + prev.getBlue() + ", " + prev.getAlpha());
 			LOGGER.info("rStep: " + rStep + ", gStep: " + gStep + ", bStep: " + bStep + ", aStep: " + aStep);
 
 			return new Color(newR, newG, newB, newA);
@@ -160,6 +167,10 @@ public class ExampleModClient implements ClientModInitializer {
 	}
 
 	public Hotkey getHotkey(String key, Hotkey prev) {
+
+		// why is deltaTime always 0??
+//		deltaTime = 0.1f;
+
 		try {
 //		String forward = MinecraftClient.getInstance().options.key.getBoundKeyLocalizedText().getString().toUpperCase();
 			// replace key with the parameter key
@@ -239,6 +250,11 @@ public class ExampleModClient implements ClientModInitializer {
 
 	@MessageSubscription
 	void onHudRendered(RenderEvent.Hud hud) {
+//		LOGGER.info(String.valueOf(deltaTime));
+//		LOGGER.info(String.valueOf(lastTime));
+		deltaTime = System.currentTimeMillis() - lastTime;
+		lastTime = System.currentTimeMillis();
+
 		if (FR == null) { // this is set in the onHudRendered method so the window exists and so an error is not thrown
 			// TODO: make this run everytime the window is resized
 
@@ -276,6 +292,17 @@ public class ExampleModClient implements ClientModInitializer {
 		Hotkey attack = Objects.requireNonNull(getHotkey("attackKey",  prevHotkeys.size() > 0 ? prevHotkeys.get(5) : null)); // attacking | left click/LMB
 		Hotkey use = Objects.requireNonNull(getHotkey("useKey",  prevHotkeys.size() > 0 ? prevHotkeys.get(6) : null)); // using | right click/RMB
 
+//		check for clicks
+		if (attack.pressed && !prevHotkeys.get(5).pressed) {
+			lCps.add(System.currentTimeMillis());
+		}
+		// now for the right click
+		if (use.pressed && !prevHotkeys.get(6).pressed) {
+			rCps.add(System.currentTimeMillis());
+		}
+		lCps.removeIf(click -> click < System.currentTimeMillis() - 1000);
+		rCps.removeIf(click -> click < System.currentTimeMillis() - 1000);
+
 		// update the previous hotkeys
 		if (prevHotkeys.size() == 0) {
 			prevHotkeys.add(forward);
@@ -294,6 +321,10 @@ public class ExampleModClient implements ClientModInitializer {
 			prevHotkeys.set(5, attack);
 			prevHotkeys.set(6, use);
 		}
+
+		assert MinecraftClient.getInstance().player != null;
+		PlayerListEntry entry = MinecraftClient.getInstance().player.networkHandler.getPlayerListEntry(MinecraftClient.getInstance().player.getUuid());
+		int ping = entry != null ? entry.getLatency() : 0;
 
 		// Get user's coordinates
 		int precision = 1;
@@ -337,6 +368,14 @@ public class ExampleModClient implements ClientModInitializer {
 			// RMB
 			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), use.bg, margin+size*1.5+gap, margin+(size+gap)*4, margin+size*3+gap*2, margin+(size+gap)*4+size, radius, 10);
 			FR.drawCenteredString(hud.getMatrixStack(), use.name, margin+size*1.5f+gap+size*1.5f/2, margin+(size+gap)*4+padding, use.getOxFG().r, use.getOxFG().g, use.getOxFG().b, use.getOxFG().a);
+
+			// "CPS: {lcps.size()} | {rcps.size()}" 3 wide
+			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), unheldBG, margin, margin+(size+gap)*5, margin+size*3+gap*2, margin+(size+gap)*5+size, radius, 10);
+			FR.drawCenteredString(hud.getMatrixStack(), "CPS: " + lCps.size() + " | " + rCps.size(), (size*3+gap*2)/2 + margin, margin+(size+gap)*5+padding, unheldColor.getRed()/255f, unheldColor.getGreen()/255f, unheldColor.getBlue()/255f, unheldColor.getAlpha()/255f);
+
+			// ping "{ping}ms" 3 wide
+			Renderer2d.renderRoundedQuad(hud.getMatrixStack(), unheldBG, margin, margin+(size+gap)*6, margin+size*3+gap*2, margin+(size+gap)*6+size, radius, 10);
+			FR.drawCenteredString(hud.getMatrixStack(), ping + "ms", (size*3+gap*2)/2 + margin, margin+(size+gap)*6+padding, unheldColor.getRed()/255f, unheldColor.getGreen()/255f, unheldColor.getBlue()/255f, unheldColor.getAlpha()/255f);
 
 			// COORDINATES (Bottom left)
 			int height = MinecraftClient.getInstance().getWindow().getScaledHeight();
