@@ -9,9 +9,9 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 ## Features
 - [X] FPS
 - [X] Keystrokes
-- [ ] CPS
-- [ ] Ping
-- [ ] Coordinates
+- [X] CPS
+- [X] Ping
+- [X] Coordinates
 - more to come
 
 ## Releases
