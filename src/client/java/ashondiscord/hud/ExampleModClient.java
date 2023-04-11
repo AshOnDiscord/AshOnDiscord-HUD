@@ -132,12 +132,12 @@ public class ExampleModClient implements ClientModInitializer {
 			if (newB < 0) newB = 0;
 			if (newA < 0) newA = 0;
 
-			LOGGER.info(newR + " | " + newG + " | " + newB + " | " + newA);
+//			LOGGER.info(newR + " | " + newG + " | " + newB + " | " + newA);
 
 //			LOGGER.info("new color: " + newR + ", " + newG + ", " + newB + ", " + newA);
 //			LOGGER.info("target color: " + target.getRed() + ", " + target.getGreen() + ", " + target.getBlue() + ", " + target.getAlpha());
 //			LOGGER.info("prev color: " + prev.getRed() + ", " + prev.getGreen() + ", " + prev.getBlue() + ", " + prev.getAlpha());
-			LOGGER.info("rStep: " + rStep + ", gStep: " + gStep + ", bStep: " + bStep + ", aStep: " + aStep);
+//			LOGGER.info("rStep: " + rStep + ", gStep: " + gStep + ", bStep: " + bStep + ", aStep: " + aStep);
 
 			return new Color(newR, newG, newB, newA);
 		}
