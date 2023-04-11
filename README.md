@@ -6,12 +6,15 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 
 `./run/` by default only includes the mods dir(which has some basic mods that we should probably have support for aswell are just nice to have while testing). Nothing else should be included.
 
-## Features
+## (Planned/Complete) Features
 - [X] FPS
 - [X] Keystrokes
 - [X] CPS
 - [X] Ping
 - [X] Coordinates
+- [ ] Server IP
+- [ ] Reach
+- [ ] Current Pack(shows name + icon of your pack)
 - more to come
 
 ## Releases
