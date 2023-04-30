@@ -15,6 +15,13 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 - [ ] Server IP
 - [ ] Reach
 - [ ] Current Pack(shows name + icon of your pack)
+- [ ] Time(IRL and game)
+- [ ] Speed
+- [ ] Sprint toggle state
+- [ ] Compass/Direction
+- [ ] Combo
+- [ ] Config Menu
+- [ ] Performance mode(decrease a bunch of settings for good performance on bad computers or laptops on battery).
 - more to come(ideally, basically all of kronhud, feather, and lunar hud features unless theres some other mod that does it way better like paperdoll or I'm just dumb)
 
 ## Releases
