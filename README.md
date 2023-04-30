@@ -18,4 +18,4 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 - more to come
 
 ## Releases
-Precompiled/built jars will likely be avaiable once the mod gets to a decent point of functionality/development.
+Precompiled/built jars will likely be available once the mod gets to a decent point of functionality/development.
