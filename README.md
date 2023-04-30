@@ -13,7 +13,7 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 - [X] Ping
 - [X] Coordinates
 - [ ] Server IP
-- [ ] Reach
+- [ ] Reach(Sorta implemented rn)
 - [ ] Current Pack(shows name + icon of your pack)
 - [ ] Time(IRL and game)
 - [ ] Speed
