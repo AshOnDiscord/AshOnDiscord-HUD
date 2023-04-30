@@ -15,7 +15,7 @@ Don't edit the serverside code(leave empty), unless you have a hud module that b
 - [ ] Server IP
 - [ ] Reach
 - [ ] Current Pack(shows name + icon of your pack)
-- more to come
+- more to come(ideally, basically all of kronhud, feather, and lunar hud features unless theres some other mod that does it way better like paperdoll or I'm just dumb)
 
 ## Releases
 Precompiled/built jars will likely be available once the mod gets to a decent point of functionality/development.
