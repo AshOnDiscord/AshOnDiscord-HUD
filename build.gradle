@@ -1,15 +1,14 @@
 plugins {
-	id 'fabric-loom' version '1.1-SNAPSHOT'
+	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'maven-publish'
-	
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -25,7 +24,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        modid {
+        "ashondiscord-hud" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
@@ -47,7 +46,7 @@ dependencies {
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
-	include modImplementation("com.github.0x3C50:Renderer:master-SNAPSHOT")
+	include modImplementation("com.github.0x3C50:Renderer:6d18793")
 }
 
 processResources {
@@ -67,6 +66,9 @@ java {
 	// if it is present.
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
+
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {

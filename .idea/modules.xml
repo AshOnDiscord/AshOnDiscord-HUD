@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ashOnDiscord_HUD.client.iml" filepath="$PROJECT_DIR$/.idea/modules/ashOnDiscord_HUD.client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ashOnDiscord_HUD.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ashOnDiscord_HUD.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ashOnDiscord_HUD.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ashOnDiscord_HUD.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ashondiscord.hud.ashOnDiscord_HUD.client.iml" filepath="$PROJECT_DIR$/.idea/modules/ashondiscord.hud.ashOnDiscord_HUD.client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ashondiscord.hud.ashOnDiscord_HUD.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ashondiscord.hud.ashOnDiscord_HUD.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ashondiscord.hud.ashOnDiscord_HUD.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ashondiscord.hud.ashOnDiscord_HUD.test.iml" />
     </modules>
   </component>
 </project>
