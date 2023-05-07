@@ -94,7 +94,7 @@ public class ExampleModClient implements ClientModInitializer {
             // TODO: make this run everytime the window is resized
 
             // Set window size to 1280x720 for play testing in the dev environment/showcasing
-			MinecraftClient.getInstance().getWindow().setWindowedSize(1280, 720);
+//			MinecraftClient.getInstance().getWindow().setWindowedSize(1280, 720);
 
             // check if screen width / px is an integer
             if (MinecraftClient.getInstance().getWindow().getWidth() % baseSize != 0) {
