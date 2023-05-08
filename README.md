@@ -1,5 +1,5 @@
 # AshOnDiscord HUD
-HUD/UI fabric mod for 1.19.3. Will upgrade to 1.19.4/1.20 eventually. Uses https://github.com/0x3C50/Renderer as the rendering library. Forge port not planned and likely will never come. [Showcase](https://www.youtube.com/watch?v=3HCbouOuGdk)
+HUD/UI fabric mod for 1.19.3. Will upgrade to 1.19.4/1.20 eventually. Uses https://github.com/0x3C50/Renderer as the rendering library. Forge port not planned and likely will never come. [Showcase(with KronHud as reference)](https://www.youtube.com/watch?v=3HCbouOuGdk)
 
 ## Workspace
 Don't edit the serverside code(leave empty), unless you have a hud module that benefits from it and doesn't change any serverside behavior + a toggle(in game or just in the code like a boolean).
