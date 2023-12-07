@@ -1,4 +1,6 @@
 # AshOnDiscord HUD
+**[NOTICE]**: This project is more or less **abandoned**. While there is always some sort of change I will return, I currently simply don't play minecraft or much games in general for the matter. If I even do end up returning I likely would end up starting from the scratch as the current codebase is to put it frankly, terrible. If you wish to fork this repo and build off my code(I don't know why you would want to do so), go ahead.
+
 HUD/UI fabric mod for 1.19.3. Will upgrade to 1.19.4/1.20 eventually. Uses https://github.com/0x3C50/Renderer as the rendering library. Forge port not planned and likely will never come. [Showcase(with KronHud as reference)](https://www.youtube.com/watch?v=3HCbouOuGdk)
 
 ## Workspace
