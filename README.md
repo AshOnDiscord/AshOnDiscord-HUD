@@ -1,4 +1,5 @@
 # AshOnDiscord HUD
+In case you're wondering why the repo was archived more than over a year after I abandonded it, I just highkey forgot.
 ## $${\color{red}IMPORTANT}$$ $${\color{red}NOTICE}$$ 
 This project is more or less **abandoned**. While there is always some sort of change I will return, I currently simply don't play minecraft or much games in general for the matter. If I even do end up returning I likely would end up starting from the scratch as the current codebase is to put it frankly, terrible. If you wish to fork this repo and build off my code(I don't know why you would want to do so), go ahead.
 
